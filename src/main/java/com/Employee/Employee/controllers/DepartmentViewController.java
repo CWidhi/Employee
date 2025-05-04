@@ -69,9 +69,16 @@ public class DepartmentViewController {
     //     return "department/member/create";
     // }
 
-    public String showEditMemberForm(@PathVariable String deptNo, Model model) {
+    public String showAddMemberForm(@PathVariable String deptNo, Model model) {
         model.addAttribute("employees", employeeService.getAllEmployee());
         model.addAttribute("deptNo", deptNo);
         return "department/member/create";
+    }
+
+    @GetMapping("/add-manajer/{deptNo}")
+    public String ShowAddManajerForm(@PathVariable String deptNo, Model model){
+        model.addAttribute("employees", employeeService.getAllEmployee());
+        model.addAttribute("deptNo", deptNo);
+        return "department/manajer/create";
     }
 }

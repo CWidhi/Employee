@@ -1,5 +1,6 @@
 package com.Employee.Employee.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,7 @@ import org.springframework.stereotype.Service;
 import com.Employee.Employee.models.Department;
 import com.Employee.Employee.models.DeptEmp;
 import com.Employee.Employee.models.Employee;
-import com.Employee.Employee.models.Salary;
 import com.Employee.Employee.models.CompositeKey.DeptEmpId;
-import com.Employee.Employee.models.CompositeKey.SalaryId;
 import com.Employee.Employee.repository.DepartmenRepository;
 import com.Employee.Employee.repository.DeptEmpRepository;
 import com.Employee.Employee.repository.EmployeeRepository;
@@ -43,10 +42,12 @@ public class DeptEmpService {
         return deptEmpRepo.save(deptEmp);
     }
 
-    public DeptEmp update(DeptEmpId id, DeptEmp deptemp){
-        if (deptEmpRepo.existsById(id)) {
-            return deptEmpRepo.save(deptemp);
+    public boolean delete(Integer empNo, String deptNo, Date fromDate) {
+        DeptEmpId id = new DeptEmpId(empNo, deptNo, fromDate);
+        if(deptEmpRepo.existsById(id)){
+            deptEmpRepo.deleteById(id);
+            return true;
         }
-        throw new RuntimeException("Salary with id " + id + " not found.");
+        return false;
     }
 }

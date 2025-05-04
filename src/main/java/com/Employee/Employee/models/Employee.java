@@ -47,11 +47,12 @@ public class Employee {
     @PastOrPresent(message = "Tanggal masuk kerja tidak boleh di masa depan")
     private Date hireDate;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<DeptEmp> deptEmps;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<DeptManager> deptManagers;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
