@@ -108,8 +108,8 @@
                 document.getElementById('firstName').value = data.firstName;
                 document.getElementById('lastName').value = data.lastName;
                 document.getElementById('gender').value = data.gender;
-                document.getElementById('birthDate').value = new Date(data.birthDate).toLocaleDateString();
-                document.getElementById('hireDate').value = new Date(data.hireDate).toLocaleDateString();
+                document.getElementById('birthDate').value = data.birthDate;
+                document.getElementById('hireDate').value = data.hireDate;
             })
             .catch(error => {
                 alert('Error fetching employee details: ' + error.message);
@@ -147,8 +147,8 @@
                 salaries.forEach(salary => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${new Date(salary.fromDate).toLocaleDateString()}</td>
-                        <td>${new Date(salary.toDate).toLocaleDateString()}</td>
+                        <td>${salary.fromDate}</td>
+                        <td>${salary.toDate}</td>
                         <td>${salary.salary}</td>
                     `;
                     tableBody.appendChild(row);
@@ -167,8 +167,8 @@
                 title.forEach(title => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${new Date(title.fromDate).toLocaleDateString()}</td>
-                        <td>${new Date(title.toDate).toLocaleDateString()}</td>
+                        <td>${title.fromDate}</td>
+                        <td>${title.toDate}</td>
                         <td>${title.title}</td>
                     `;
                     tableBody.appendChild(row);
@@ -185,8 +185,8 @@
                 department.forEach(department => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${new Date(department.fromDate).toLocaleDateString()}</td>
-                        <td>${new Date(department.toDate).toLocaleDateString()}</td>
+                        <td>${department.fromDate}</td>
+                        <td>${department.toDate}</td>
                         <td>${department.department.deptName}</td>
                     `;
                     tableBody.appendChild(row);
@@ -203,8 +203,8 @@
                 department.forEach(department => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${new Date(department.fromDate).toLocaleDateString()}</td>
-                        <td>${new Date(department.toDate).toLocaleDateString()}</td>
+                        <td>${department.fromDate}</td>
+                        <td>${department.toDate}</td>
                         <td>${department.department.deptName}</td>
                     `;
                     tableBody.appendChild(row);
