@@ -12,10 +12,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.Data;
 
 @Entity
 @Table(name = "dept_manager")
 @IdClass(DeptManagerId.class)
+@Data
 public class DeptManager {
     @Id
     private String deptNo;

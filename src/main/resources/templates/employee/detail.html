@@ -85,6 +85,17 @@
             </thead>
             <tbody id="departmentTableBody"></tbody>
         </table>
+        <h4 class="mt-5">Manajer History</h4>
+        <table id="manajerTable" class="table table-bordered mt-2">
+            <thead>
+                <tr>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Manajer</th>
+                </tr>
+            </thead>
+            <tbody id="manajerTableBody"></tbody>
+        </table>
     </div>
 
     <script>
@@ -184,12 +195,31 @@
             .catch(error => {
                 alert("failed to load title data: " + error.message);
             });
+        fetch(`/api/deptMan/employee/${empNo}`)
+            .then(response => response.json())
+            .then(department => {
+                const tableBody = document.getElementById('manajerTableBody');
+                tableBody.innerHTML = ''; 
+                department.forEach(department => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${new Date(department.fromDate).toLocaleDateString()}</td>
+                        <td>${new Date(department.toDate).toLocaleDateString()}</td>
+                        <td>${department.department.deptName}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                alert("failed to load title data: " + error.message);
+            });
     </script>  
     <script>
         $(document).ready(function () {
             $('#salaryTable').DataTable();
             $('#titleTable').DataTable();
             $('#departmentTable').DataTable();
+            $('#manajerTable').DataTable();
         });
     </script>
 </body>

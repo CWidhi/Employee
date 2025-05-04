@@ -42,9 +42,23 @@
                     <th>Memeber</th>
                     <th>From Date</th>
                     <th>To Date</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="memberTableBody"></tbody>
+        </table>
+        <h4 class="mt-5">Manajer</h4>
+        <a th:href="@{/department/add-manajer/{deptNo}(deptNo=${deptNo})}" class="btn btn-primary">Add Manajer +</a>
+        <table id="manajer" class="table table-bordered mt-2">
+            <thead>
+                <tr>
+                    <th>Manajer</th>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="manajerTableBody"></tbody>
         </table>
     </div>
 
@@ -86,6 +100,7 @@
     <script>
         $(document).ready(function () {
             $('#member').DataTable();
+            $('#manajer').DataTable();
         });
     </script>
     <script>
@@ -100,13 +115,100 @@
                         <td>${member.employee.firstName + ' ' + member.employee.lastName}</td>
                         <td>${new Date(member.fromDate).toLocaleDateString()}</td>
                         <td>${new Date(member.toDate).toLocaleDateString()}</td>
+                        <td> 
+                            <button class="btn btn-danger btn-sm delete-member" 
+                                data-emp="${member.employee.empNo}" 
+                                data-dept="${member.department.deptNo}" 
+                                data-from="${member.fromDate}">
+                                Delete
+                            </button>
+                        </td>
                     `;
                     tableBody.appendChild(row);
                 });
+                document.querySelectorAll('.delete-member').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const empNo = this.getAttribute('data-emp');
+                        const deptNo = this.getAttribute('data-dept');
+                        const fromDate = this.getAttribute('data-from');
+                        
+                        if (confirm("Are you sure to delete this mamber?")) {
+                            fetch(`/api/deptemp/${empNo}/${deptNo}/${fromDate}`, {
+                                method: 'DELETE'
+                            })
+                            .then(response => {
+                                if (response.ok) {
+                                    alert("Successfully deleted mamber.");
+                                    location.reload();
+                                } else {
+                                    throw new Error("Failed to delete.");
+                                }
+                            })
+                            .catch(error => {
+                                alert("Error: " + error.message);
+                            });
+                        }
+                    });
+                });    
             })
             .catch(error => {
                 alert("failed to load title data: " + error.message);
             });
+    </script>
+    <script>
+        fetch(`/api/deptMan/department/${deptNo}`)
+    .then(response => response.json())
+    .then(member => {
+        const tableBody = document.getElementById('manajerTableBody');
+        tableBody.innerHTML = ''; 
+        member.forEach(member => {
+            const fromDate = new Date(member.fromDate).toISOString().split('T')[0]; // Format: YYYY-MM-DD
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${member.employee.firstName + ' ' + member.employee.lastName}</td>
+                <td>${fromDate}</td>
+                <td>${new Date(member.toDate).toLocaleDateString()}</td>
+                <td>
+                    <button class="btn btn-danger btn-sm delete-manajer" 
+                            data-emp="${member.employee.empNo}" 
+                            data-dept="${member.department.deptNo}" 
+                            data-from="${fromDate}">
+                        Delete
+                    </button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        document.querySelectorAll('.delete-manajer').forEach(button => {
+            button.addEventListener('click', function () {
+                const empNo = this.getAttribute('data-emp');
+                const deptNo = this.getAttribute('data-dept');
+                const fromDate = this.getAttribute('data-from');
+                
+                if (confirm("Are you sure to delete this manager?")) {
+                    fetch(`/api/deptMan/${empNo}/${deptNo}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("Successfully deleted manager.");
+                            location.reload();
+                        } else {
+                            throw new Error("Failed to delete.");
+                        }
+                    })
+                    .catch(error => {
+                        alert("Error: " + error.message);
+                    });
+                }
+            });
+        });    
+    })
+    .catch(error => {
+        alert("Failed to load manager data: " + error.message);
+    });
     </script>
 </body>
 </html>
