@@ -24,7 +24,8 @@ public class DeptManager {
 
     @Id
     private Integer empNo;
-
+    
+    @Id
     @Temporal(TemporalType.DATE)
     private Date fromDate;
 

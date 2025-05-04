@@ -26,6 +26,7 @@ public class DeptEmp {
     @Id
     private String deptNo;
 
+    @Id
     @Temporal(TemporalType.DATE)
     private Date fromDate;
 

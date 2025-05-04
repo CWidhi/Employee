@@ -1,5 +1,6 @@
 package com.Employee.Employee.controllers;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +40,11 @@ public class DeptManagerController {
     public DeptManager create(@RequestBody DeptManager deptManager){
         return deptManagerService.create(deptManager);
     }
-    @DeleteMapping("/{empNo}/{deptNo}")
-    public ResponseEntity<String> delete( @PathVariable Integer empNo, @PathVariable String deptNo) {
+    @DeleteMapping("/{empNo}/{deptNo}/{fromDate}")
+    public ResponseEntity<String> delete( @PathVariable Integer empNo, 
+    @PathVariable String deptNo, @PathVariable Date fromDate) {
         
-        boolean deleted = deptManagerService.delete(empNo, deptNo);
+        boolean deleted = deptManagerService.delete(empNo, deptNo, fromDate);
         return deleted
             ? ResponseEntity.ok("Deleted successfully")
             : ResponseEntity.notFound().build();

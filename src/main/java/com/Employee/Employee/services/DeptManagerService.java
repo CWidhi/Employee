@@ -1,5 +1,6 @@
 package com.Employee.Employee.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,8 @@ public class DeptManagerService {
         return deptManagerRepository.save(deptManager);
     }
 
-    public boolean delete(Integer empNo, String deptNo) {
-    DeptManagerId id = new DeptManagerId(empNo, deptNo);
+    public boolean delete(Integer empNo, String deptNo, Date fromDate) {
+    DeptManagerId id = new DeptManagerId(empNo, deptNo, fromDate);
         if (deptManagerRepository.existsById(id)) {
             deptManagerRepository.deleteById(id);
             return true;

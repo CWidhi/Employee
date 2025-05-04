@@ -1,8 +1,8 @@
 package com.Employee.Employee.controllers;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+// import java.util.Set;
+// import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.Employee.Employee.models.Department;
-import com.Employee.Employee.models.DeptEmp;
-import com.Employee.Employee.models.Employee;
+// import com.Employee.Employee.models.DeptEmp;
+// import com.Employee.Employee.models.Employee;
 import com.Employee.Employee.services.DepartmenService;
-import com.Employee.Employee.services.DeptEmpService;
+// import com.Employee.Employee.services.DeptEmpService;
 import com.Employee.Employee.services.EmployeeService;
 
 @Controller
@@ -25,8 +25,8 @@ public class DepartmentViewController {
     private DepartmenService departmenService;
     @Autowired 
     private EmployeeService employeeService;
-    @Autowired
-    private DeptEmpService deptEmpService;
+    // @Autowired
+    // private DeptEmpService deptEmpService;
 
 
     @GetMapping("/")

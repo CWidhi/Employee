@@ -113,8 +113,8 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${member.employee.firstName + ' ' + member.employee.lastName}</td>
-                        <td>${new Date(member.fromDate).toLocaleDateString()}</td>
-                        <td>${new Date(member.toDate).toLocaleDateString()}</td>
+                        <td>${member.fromDate}</td>
+                        <td>${member.toDate}</td>
                         <td> 
                             <button class="btn btn-danger btn-sm delete-member" 
                                 data-emp="${member.employee.empNo}" 
@@ -168,12 +168,12 @@
             row.innerHTML = `
                 <td>${member.employee.firstName + ' ' + member.employee.lastName}</td>
                 <td>${fromDate}</td>
-                <td>${new Date(member.toDate).toLocaleDateString()}</td>
+                <td>${member.toDate}</td>
                 <td>
                     <button class="btn btn-danger btn-sm delete-manajer" 
                             data-emp="${member.employee.empNo}" 
                             data-dept="${member.department.deptNo}" 
-                            data-from="${fromDate}">
+                            data-from="${member.fromDate}">
                         Delete
                     </button>
                 </td>
@@ -188,7 +188,7 @@
                 const fromDate = this.getAttribute('data-from');
                 
                 if (confirm("Are you sure to delete this manager?")) {
-                    fetch(`/api/deptMan/${empNo}/${deptNo}`, {
+                    fetch(`/api/deptMan/${empNo}/${deptNo}/${fromDate}`, {
                         method: 'DELETE'
                     })
                     .then(response => {
